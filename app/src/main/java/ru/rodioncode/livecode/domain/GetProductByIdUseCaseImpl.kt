@@ -8,15 +8,15 @@ import ru.rodioncode.livecode.network.map
 import ru.rodioncode.livecode.presentation.productsList.ProductUi
 import javax.inject.Inject
 
-class GetProductsUseCaseImpl @Inject constructor(
+class GetProductByIdUseCaseImpl @Inject constructor(
+    private val repository: ProductsRepository,
     private val mapper: ProductUiMapper,
-    private val repository: ProductsRepository) :
-    GetProductsUseCase {
+) : GetProductByIdUseCase {
 
-    override suspend fun invoke(): NetworkResult<List<ProductUi>> = withContext(Dispatchers.IO) {
-        return@withContext repository.getProducts()
+    override suspend fun invoke(id: Int): NetworkResult<ProductUi> = withContext(Dispatchers.IO) {
+        return@withContext repository.getProductById(id)
             .map {
-                mapper.transform(it)
+                mapper.toProductUi(it)
             }
     }
 }

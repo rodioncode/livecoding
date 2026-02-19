@@ -58,7 +58,10 @@ dependencies {
 
     // hilt
     implementation("com.google.dagger:hilt-android:2.57.1")
+    implementation(libs.androidx.appcompat)
     ksp("com.google.dagger:hilt-android-compiler:2.57.1")
+    implementation("androidx.navigation:navigation-compose:2.9.7")
+    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
 
     //network
     implementation("com.squareup.retrofit2:retrofit:2.9.0")

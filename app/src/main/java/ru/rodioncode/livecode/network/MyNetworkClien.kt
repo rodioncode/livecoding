@@ -6,6 +6,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import okhttp3.logging.HttpLoggingInterceptor.Level
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.rodioncode.livecode.network.api.ProductsApi
@@ -27,8 +28,10 @@ object NetworkModule {
     @Provides
     fun provideOkHttpClient(
     ): OkHttpClient {
+        val logger = HttpLoggingInterceptor()
+        logger.level = Level.BODY
         return OkHttpClient.Builder()
-            .addInterceptor(HttpLoggingInterceptor())
+            .addInterceptor(logger)
             .build()
     }
 
